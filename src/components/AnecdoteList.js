@@ -10,7 +10,7 @@ const AnecdoteList = ( props ) => {
         console.log( 'vote',id )
         dispatch( voteAction( id ) )
     }
-    const anecdotes = useSelector( state => state )
+    const anecdotes = useSelector( state => state.anecdotes )
 
     return (
         <React.Fragment>
