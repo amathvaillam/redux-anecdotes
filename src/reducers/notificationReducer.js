@@ -1,4 +1,19 @@
+export const notificationAction = ( message ) => ( { type: 'DISPLAY',message: message } )
+export const hideNotificationAction = ( message ) => ( { type: 'HIDE' } )
 
-const notificatonReducer = ( state = 'DEFAULT',action ) => state
+const notificationReducer = ( state = '',action ) => {
+    switch ( action.type )
+    {
+        case "DISPLAY": {
+            return action.message
+        }
+        case "HIDE": {
+            return ''
+        }
+        default: {
+            return state
+        }
+    }
+}
 
-export default notificatonReducer 
+export default notificationReducer 
