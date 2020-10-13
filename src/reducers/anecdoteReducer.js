@@ -37,9 +37,10 @@ export const initAnecdoteAction = ( anecdotes ) => {
     data: anecdotes
   }
 }
-export const createAnecdoteAction = ( content ) => {
+export const createAnecdoteAction = ( anecdote ) => {
   return {
     type: 'NEW ANECDOTE',
+    data: anecdote
   }
 }
 
@@ -50,7 +51,7 @@ const AnecdoteReducer = ( state = [],action ) => {
   console.log( 'action',action )
   switch ( action.type )
   {
-    case 'NEW_ANECDOTE': {
+    case 'NEW ANECDOTE': {
       return [ ...state,action.data ]
     }
     case 'INIT ANECDOTE': {
