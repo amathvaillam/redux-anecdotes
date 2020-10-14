@@ -1,6 +1,12 @@
-export const notificationAction = ( message ) => ( { type: 'DISPLAY',message: message } )
-export const hideNotificationAction = ( message ) => ( { type: 'HIDE' } )
 
+export const notificationAction = ( message,duration ) => {
+    return async dispatch => {
+        dispatch( { type: 'DISPLAY',message: message } )
+        setTimeout( () => {
+            dispatch( { type: 'HIDE' } )
+        },duration * 1000 )
+    }
+}
 const notificationReducer = ( state = '',action ) => {
     switch ( action.type )
     {

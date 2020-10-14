@@ -30,10 +30,7 @@ const AnecdoteList = ( props ) => {
                         has { anecdote.votes }
                         <button onClick={ () => {
                             vote( anecdote )
-                            dispatch( notificationAction( anecdote.content ) )
-                            setTimeout( () => {
-                                dispatch( hideNotificationAction( '' ) )
-                            },5000 )
+                            dispatch( notificationAction( anecdote.content,5 ) )
                         } }>vote</button>
                     </div>
                 </div>
