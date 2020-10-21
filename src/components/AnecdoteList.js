@@ -1,27 +1,18 @@
 import React,{ Fragment } from 'react'
-import { useDispatch,useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 import { voteAction } from '../reducers/anecdoteReducer'
 import { notificationAction } from '../reducers/notificationReducer'
-import { hideNotificationAction } from '../reducers/notificationReducer'
 
 const AnecdoteList = ( props ) => {
 
-    const dispatch = useDispatch()
-
     const vote = ( id ) => {
         console.log( 'vote',id )
-        dispatch( voteAction( id ) )
+        props.voteAction( id )
     }
 
-    const anecdotes = useSelector( state => {
-        if ( state.filter === "ALL" )
-            return state.anecdotes
-        return ( state.anecdotes.filter( anecdote => anecdote.content.includes( state.filter ) ) )
-    } )
-
     return (
-        <React.Fragment>
-            { anecdotes.map( anecdote =>
+        <Fragment>
+            { props.anecdotes.map( anecdote =>
                 <div key={ anecdote.id }>
                     <div>
                         { anecdote.content }
@@ -30,13 +21,25 @@ const AnecdoteList = ( props ) => {
                         has { anecdote.votes }
                         <button onClick={ () => {
                             vote( anecdote )
-                            dispatch( notificationAction( anecdote.content,5 ) )
+                            props.notificationAction( anecdote.content,5 )
                         } }>vote</button>
                     </div>
                 </div>
             ) }
-        </React.Fragment>
+        </Fragment>
     )
 }
 
-export default AnecdoteList
+const mapStateToProps = ( state ) => {
+    if ( state.filter === "ALL" )
+        return { anecdotes: state.anecdotes }
+    return ( { anecdotes: state.anecdotes.filter( anecdote => anecdote.content.includes( state.filter ) ) } )
+}
+
+const mapDispatchToProps = {
+    notificationAction,
+    voteAction
+}
+
+const ConnectedAnecdotes = connect( mapStateToProps,mapDispatchToProps )( AnecdoteList )
+export default ConnectedAnecdotes
